@@ -21,7 +21,7 @@
 
 <script>
 /* eslint-disable */
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 export default {
     setup() {
         const name = ref('Francis');
@@ -39,7 +39,18 @@ export default {
         // COMPUTED
         const message = computed(() => {
             return `Hello, i am ${name.value} and i am a ${occupation.value}`
+        });
+        /// WATCH
+        watch([occupation, name], (
+            [newOccupationValue, newName],
+            [oldOccupationValue, oldName]
+        ) => {
+            console.log(newOccupationValue, 'NEW occ');
+            console.log(oldOccupationValue, 'OLD occ');
+            console.log(newName, 'NEW name');
+            console.log(oldName, 'OLD name');
         })
+
         return {
             name: name,
             occupation,
@@ -49,6 +60,11 @@ export default {
             message
         }
     },
+    // watch:{
+    //     occupation(){
+    //         console.log('Occupation changed');
+    //     }
+    // },
     data() {
         return {
             age: 18
