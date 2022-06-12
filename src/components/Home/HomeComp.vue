@@ -3,10 +3,7 @@
 
 <template>
     <div>
-        <div>Hello my name is: {{ name }}</div>
-        <div>Occupation: {{ occupation }}</div>
-        <div>Bilingual: {{ lang }}</div>
-        <div>Age: {{ age }}</div>
+        <User-Comp-Vue :user="user"></User-Comp-Vue>
         <button @click="changeName('SOME ARG', $event)" class="btn btn-success">Change name</button>
         &nbsp;
         <button @click="changeOccupation('GAMER')" class="btn btn-primary">Change occupation</button>
@@ -32,7 +29,12 @@
 <script>
 /* eslint-disable */
 import { ref, computed, watch, reactive } from 'vue';
+import UserCompVue from './UserComp.vue';
+
 export default {
+    components: {
+        UserCompVue
+    },
     setup() {
         const form = reactive({
             name: '',
@@ -44,8 +46,6 @@ export default {
             occupation: 'DEV',
             bilingual: false
         });
-        console.log("USER *****")
-        console.log(user)
         /// FUNCTIONS
         function changeName(arg1, event) {
             user.name = 'Ronald';
