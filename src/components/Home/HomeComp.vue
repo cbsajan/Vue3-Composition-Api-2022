@@ -3,7 +3,11 @@
 
 <template>
     <div>
-        <User-Comp-Vue :user="user"></User-Comp-Vue>
+        <User-Comp-Vue :user="user" required="yes" @saySomething="fromEmit">
+            <div class="container">
+                <h1>Hello My Name is {{ user.name }}</h1>
+            </div>
+        </User-Comp-Vue>
         <button @click="changeName('SOME ARG', $event)" class="btn btn-success">Change name</button>
         &nbsp;
         <button @click="changeOccupation('GAMER')" class="btn btn-primary">Change occupation</button>
@@ -25,12 +29,10 @@
     </div>
 </template>
 
-
 <script>
 /* eslint-disable */
-import { ref, computed, watch, reactive } from 'vue';
 import UserCompVue from './UserComp.vue';
-
+import { ref, computed, watch, reactive } from 'vue';
 export default {
     components: {
         UserCompVue
@@ -55,7 +57,10 @@ export default {
         }
         const submitForm = (e) => {
             e.preventDefault();
-            console.log(form);
+            //console.log(form);
+        }
+        const fromEmit = (arg) => {
+            console.log('FROM EMMIT !!', arg)
         }
         // COMPUTED
         const message = computed(() => {
@@ -64,8 +69,8 @@ export default {
 
         /// WATCH
         watch(user, (newUser, oldUser) => {
-            console.log(newUser, 'NEW');
-            console.log(oldUser, 'OLD');
+            // console.log(newUser,'NEW');
+            // console.log(oldUser,'OLD');
         });
 
         return {
@@ -74,7 +79,8 @@ export default {
             submitForm,
             changeName,
             changeOccupation,
-            message
+            message,
+            fromEmit
         }
     }
 }
